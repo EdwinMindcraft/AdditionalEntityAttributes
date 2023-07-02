@@ -12,6 +12,7 @@
     "website": "https://github.com/DaFuqs/AdditionalEntityAttributes",
     "repo": "https://github.com/DaFuqs/AdditionalEntityAttributes"
   },
+  "icon": "additionalentityattributes.png",
   "license": "MIT",
   "environment": "*",
   "entrypoints": {
@@ -19,6 +20,7 @@
       "de.dafuqs.additionalentityattributes.AdditionalEntityAttributes"
     ]
   },
+  "accessWidener": "additionalentityattributes.accesswidener",
   "mixins": [
     "additionalentityattributes.mixins.json"
   ],
