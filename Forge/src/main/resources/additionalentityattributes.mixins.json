@@ -7,10 +7,11 @@
     "common.ApplyBonusLootFunctionMixin",
     "common.BlockMixin",
     "common.DigSpeedMixin",
+    "common.EntityMixin",
     "common.LivingEntityMixin",
     "common.PlayerEntityMixin",
     "common.RandomChanceLootConditionMixin",
-    "common.RandomChanceWithLootingLootConditionMixin",
+    "common.RandomChanceWithLootingLootConditionMixin"
 	],
 	"client": [
 		"client.BackgroundRendererMixin"

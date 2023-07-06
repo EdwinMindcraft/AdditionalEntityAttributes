@@ -8,6 +8,7 @@
 		"common.AddAttributesMixin",
     "common.BlockMixin",
 		"common.DigSpeedMixin",
+    "common.EntityMixin",
 		"common.LivingEntityMixin",
 		"common.PlayerEntityMixin",
     "common.RandomChanceLootConditionMixin",
