@@ -1,13 +1,16 @@
 package de.dafuqs.additionalentityattributes;
 
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 
 public class AdditionalEntityAttributes {
-	
+
 	public static final String MOD_ID = "additionalentityattributes";
-	
-	/**
+
+	/*
 	 * For testing, default vanilla commands can be used:
 	 * /attribute @s additionalentityattributes:critical_bonus_damage modifier add 135e1f1e-755d-4cfe-82da-3648626eeba2 test 1 multiply_base
 	 * /attribute @s additionalentityattributes:lava_visibility modifier add 135e1f1e-755d-4cfe-82da-3648626eeba2 test 10 add
@@ -15,7 +18,7 @@ public class AdditionalEntityAttributes {
 	 * /attribute @s additionalentityattributes:water_speed modifier add 135e1f1e-755d-4cfe-82da-3648626eeba2 test 0.5 multiply_base
 	 * /attribute @s additionalentityattributes:water_visibility modifier add 135e1f1e-755d-4cfe-82da-3648626eeba2 test -0.5 multiply
 	 */
-	
+
 	/**
 	 * Controls the bonus damage dealt when dealing critical hits
 	 * By default, critical hits deal 1.5 times the damage, so the base value of this attribute is 0.5.
@@ -25,7 +28,7 @@ public class AdditionalEntityAttributes {
 	 * multiplier of 75% (1.75x damage).
 	 */
 	public static final Attribute CRITICAL_BONUS_DAMAGE = createAttribute("critical_bonus_damage", 0.5, -1.0, 1024.0);
-	
+
 	/**
 	 * Controls the speed of the player when in water
 	 * The base value of this attribute is always set dynamically, therefore setting it via a command will have no effect.
@@ -33,12 +36,17 @@ public class AdditionalEntityAttributes {
 	 * Stacks with dolphins grace and depth strider, albeit the latter has little felt effect at higher speeds.
 	 */
 	public static final Attribute WATER_SPEED = createAttribute("water_speed", 0.5, 0, 1);
-	
+
 	/**
 	 * Controls the vision of the player when in water by adjusting the fog distance
 	 */
 	public static final Attribute WATER_VISIBILITY = createAttribute("water_visibility", 96.0, 0, 1024.0);
-	
+
+	/**
+	 * Controls the maximum amount of air the player can have
+	 */
+	public static final Attribute MAX_AIR = createAttribute("max_air", 4000.0, 0, 10000);
+
 	/**
 	 * Controls the speed of the player when in lava
 	 * The base value of this attribute is always set dynamically, therefore setting it via a command will have no effect.
@@ -46,7 +54,7 @@ public class AdditionalEntityAttributes {
 	 * Negative values will make the player even slower with -1.0 resulting in being almost unable to move
 	 */
 	public static final Attribute LAVA_SPEED = createAttribute("lava_speed", 0.5, 0, 1);
-	
+
 	/**
 	 * Controls the vision of the player when in lava by adjusting the fog distance
 	 */
@@ -56,7 +64,7 @@ public class AdditionalEntityAttributes {
 	 * Controls the dig speed of the player
 	*/
 	public static final Attribute DIG_SPEED = createAttribute("generic.dig_speed", 0.0D, 0.0D, 2048.0D);
-	
+
 	/**
 	 * Controls the drops the player gets when using enchantments, such as looting or fortune
 	 * (more precise: everything that uses the ApplyBonusLootFunction to increase drops based on an enchantments level)
@@ -65,13 +73,14 @@ public class AdditionalEntityAttributes {
 	public static final Attribute BONUS_LOOT_COUNT_ROLLS = createAttribute("generic.bonus_loot_count_rolls", 0.0D, 0.0D, 128.0);
 
 	/**
-	 *
+	 * Number of rerolls when chance based loot tables are rolled
+	 * Each full +1 on this stat will roll the bonus count another time. Highest one is kept.
 	 */
 	public static final Attribute BONUS_RARE_LOOT_ROLLS = createAttribute("generic.bonus_rare_loot_rolls", 0.0D, 0.0D, 128.0);
-	
+
 	/**
 	 * Modifies the experience dropped from mining blocks and killing mobs.
-	 * The default of 1.0 equals the vanilla drop amount, 0.0 will result in no xp drops altogether
+	 * The default of 1.0 equals the vanilla drop amount, 0.0 will result in no xp drops altogether.
 	 */
 	public static final Attribute DROPPED_EXPERIENCE = createAttribute("player.dropped_experience", 1.0D, 0.0D, 1024.0D);
 
@@ -82,20 +91,25 @@ public class AdditionalEntityAttributes {
 	public static final Attribute MAGIC_PROTECTION = createAttribute("player.magic_protection", 0.0D, 0.0D, 1024.0D);
 
 	public void initialize() {
-		RegistryService.INSTANCE.registerAttribute("critical_bonus_damage", CRITICAL_BONUS_DAMAGE);
-		RegistryService.INSTANCE.registerAttribute("water_speed", WATER_SPEED);
-		RegistryService.INSTANCE.registerAttribute("water_visibility", WATER_VISIBILITY);
-		RegistryService.INSTANCE.registerAttribute("lava_speed", LAVA_SPEED);
-		RegistryService.INSTANCE.registerAttribute("lava_visibility", LAVA_VISIBILITY);
-		RegistryService.INSTANCE.registerAttribute("dig_speed", DIG_SPEED);
-		RegistryService.INSTANCE.registerAttribute("bonus_rare_loot_rolls", BONUS_RARE_LOOT_ROLLS);
-		RegistryService.INSTANCE.registerAttribute("bonus_loot_count_rolls", BONUS_LOOT_COUNT_ROLLS);
-		RegistryService.INSTANCE.registerAttribute("dropped_experience", DROPPED_EXPERIENCE);
-		RegistryService.INSTANCE.registerAttribute("magic_protection", MAGIC_PROTECTION);
+		register("critical_bonus_damage", CRITICAL_BONUS_DAMAGE);
+		register("water_speed", WATER_SPEED);
+		register("water_visibility", WATER_VISIBILITY);
+		register("max_air", MAX_AIR);
+		register("lava_speed", LAVA_SPEED);
+		register("lava_visibility", LAVA_VISIBILITY);
+        register("dig_speed", DIG_SPEED);
+		register("bonus_rare_loot_rolls", BONUS_RARE_LOOT_ROLLS);
+		register("bonus_loot_count_rolls", BONUS_LOOT_COUNT_ROLLS);
+        register("dropped_experience", DROPPED_EXPERIENCE);
+        register("magic_protection", MAGIC_PROTECTION);
 	}
-	
+
+	private static Attribute register(String id, Attribute attribute) {
+		return Registry.register(BuiltInRegistries.ATTRIBUTE, new ResourceLocation(MOD_ID, id), attribute);
+	}
+
 	private static Attribute createAttribute(final String name, double base, double min, double max) {
 		return new RangedAttribute("attribute.name.generic." + MOD_ID + '.' + name, base, min, max).setSyncable(true);
 	}
-	
+
 }
