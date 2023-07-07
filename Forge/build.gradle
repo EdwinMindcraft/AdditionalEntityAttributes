@@ -15,6 +15,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.spongepowered.mixin'
 
 archivesBaseName = "${archives_base_name}-forge-${minecraft_version}"
+jarJar.enable()
 
 minecraft {
 	mappings channel: 'official', version: minecraft_version
@@ -72,6 +73,8 @@ sourceSets.main.resources.srcDir 'src/generated/resources'
 dependencies {
 	minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 	compileOnly project(":Common")
+    implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-common:${mixin_extras_version}"))
+    implementation(jarJar("com.github.llamalad7.mixinextras:mixinextras-forge:${mixin_extras_version}")) { jarJar.ranged(it, "[${mixin_extras_version},)") }
 	annotationProcessor group: 'org.spongepowered', name: 'mixin', version: '0.8.5', classifier: 'processor'
 }
 
@@ -89,6 +92,15 @@ mixin {
 	config "additionalentityattributes.mixins.json"
 
 	add sourceSets.main, "additionalentityattributes.refmap.json"
+}
+
+
+tasks.jarJar.configure {
+    archiveClassifier = ""
+}
+
+reobf {
+    jarJar {}
 }
 
 jar.finalizedBy('reobfJar')
