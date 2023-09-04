@@ -87,7 +87,7 @@ public class AdditionalEntityAttributes {
 	 */
 	public static final Attribute MAGIC_PROTECTION = createAttribute("player.magic_protection", 0.0D, 0.0D, 1024.0D);
 
-	public void initialize() {
+	public static void initialize() {
 		RegistryService.INSTANCE.registerAttribute("critical_bonus_damage", CRITICAL_BONUS_DAMAGE);
         RegistryService.INSTANCE.registerAttribute("water_speed", WATER_SPEED);
         RegistryService.INSTANCE.registerAttribute("water_visibility", WATER_VISIBILITY);
