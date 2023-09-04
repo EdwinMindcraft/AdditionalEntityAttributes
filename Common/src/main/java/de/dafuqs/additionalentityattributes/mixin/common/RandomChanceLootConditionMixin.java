@@ -24,7 +24,7 @@ public abstract class RandomChanceLootConditionMixin {
 	public void additionalEntityAttributes$applyBonusLoot(LootContext lootContext, CallbackInfoReturnable<Boolean> cir) {
 		// if the result was to not drop a drop before reroll
 		// gets more probable with each additional level of Clovers Favor
-		if (!cir.getReturnValue() && this.probability < 1.0F && lootContext.getParam(LootContextParams.KILLER_ENTITY) instanceof LivingEntity livingEntity) {
+		if (!cir.getReturnValue() && this.probability < 1.0F && lootContext.hasParam(LootContextParams.KILLER_ENTITY) && lootContext.getParam(LootContextParams.KILLER_ENTITY) instanceof LivingEntity livingEntity) {
 			AttributeInstance attributeInstance = livingEntity.getAttribute(AdditionalEntityAttributes.BONUS_RARE_LOOT_ROLLS);
 			if (attributeInstance != null) {
 				cir.setReturnValue(lootContext.getRandom().nextFloat() < this.probability * (float) attributeInstance.getValue());
