@@ -4,7 +4,7 @@ plugins {
 	id 'maven-publish'
 }
 
-archivesBaseName = "${archives_base_name}-common-${minecraft_version}"
+archivesBaseName = "${archives_base_name}-common"
 
 minecraft {
 	version (minecraft_version)
@@ -24,4 +24,26 @@ processResources {
 	filesMatching(['pack.mcmeta']) {
 		expand buildProps
 	}
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId project.group
+            artifactId project.archivesBaseName
+            version project.version
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = "merchantpug"
+            url = "https://maven.merchantpug.net/releases"
+            credentials(PasswordCredentials)
+            authentication {
+                create("basic", BasicAuthentication)
+            }
+        }
+        mavenLocal()
+    }
 }

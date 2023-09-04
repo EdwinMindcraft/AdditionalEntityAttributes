@@ -3,7 +3,7 @@ plugins {
 	id 'idea'
 }
 
-archivesBaseName = "${archives_base_name}-fabric-${minecraft_version}"
+archivesBaseName = "${archives_base_name}-fabric"
 
 dependencies {
 	minecraft "com.mojang:minecraft:${minecraft_version}"
@@ -51,3 +51,12 @@ jar {
 		rename { "${it}_${mod_name}" }
 	}
 }
+
+/**
+ * Please rely on the official Additional Entity Attributes on Fabric.
+ *
+ * It's not our fault if you choose to use this fork instead
+ * and something breaks another mod.
+ *
+ * You are able to obtain AEA Fabric through the Modrinth Maven.
+ */
