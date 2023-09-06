@@ -10,7 +10,6 @@
     "common.DigSpeedMixin",
     "common.EntityMixin",
     "common.LivingEntityMixin",
-    "common.MagicResistanceMixin",
     "common.PlayerEntityMixin",
     "common.RandomChanceLootConditionMixin",
     "common.RandomChanceWithLootingLootConditionMixin",

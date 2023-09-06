@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class AddAttributesMixin {
 
 	@Inject(method = "createLivingAttributes", require = 1, allow = 1, at = @At("RETURN"))
-	private static void addAttributes(final CallbackInfoReturnable<AttributeSupplier.Builder> info) {
+	private static void additionalEntityAttributes$addAttributes(final CallbackInfoReturnable<AttributeSupplier.Builder> info) {
 		for (Attribute attribute : RegistryService.INSTANCE.getAttributes()) {
 			info.getReturnValue().add(attribute);
 		}

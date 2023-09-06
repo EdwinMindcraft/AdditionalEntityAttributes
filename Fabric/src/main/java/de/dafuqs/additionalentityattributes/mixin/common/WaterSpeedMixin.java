@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.*;
 public abstract class WaterSpeedMixin {
 
 	@ModifyConstant(method = "jumpInLiquid", constant = @Constant(doubleValue = 0.03999999910593033D))
-	public double modifyUpwardSwimming(double original, TagKey<Fluid> fluid) {
+	public double additionalEntityAttributes$modifyUpwardSwimming(double original, TagKey<Fluid> fluid) {
 		if (FluidTags.WATER == fluid)
 			return AttributeUtils.getAttribute((LivingEntity) (Object) this, AdditionalEntityAttributes.WATER_SPEED, original);
 		else
@@ -21,7 +21,7 @@ public abstract class WaterSpeedMixin {
 	}
 
 	@ModifyConstant(method = "goDownInWater", constant = @Constant(doubleValue = -0.03999999910593033D))
-	public double knockDownwards(double original) {
+	public double additionalEntityAttributes$knockDownwards(double original) {
 		return -AttributeUtils.getAttribute((LivingEntity) (Object) this, AdditionalEntityAttributes.WATER_SPEED, -original);
 	}
 }

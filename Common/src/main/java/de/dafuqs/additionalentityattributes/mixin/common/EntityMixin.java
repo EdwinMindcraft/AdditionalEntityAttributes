@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.*;
 public abstract class EntityMixin {
     
     @ModifyReturnValue(method = "getMaxAirSupply", at = @At("RETURN"))
-    public int getMaxAir(int original) {
+    public int additionalEntityAttributes$getMaxAir(int original) {
         if (!((Object) this instanceof LivingEntity livingEntity)) {
             return original;
         } else {

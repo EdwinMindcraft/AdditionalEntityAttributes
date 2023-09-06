@@ -18,21 +18,35 @@ public abstract class LivingEntityMixin {
 	@Shadow @Nullable protected Player lastHurtByPlayer;
 
 	@ModifyConstant(method = "travel", constant = {@Constant(doubleValue = 0.5D, ordinal = 0), @Constant(doubleValue = 0.5D, ordinal = 1), @Constant(doubleValue = 0.5D, ordinal = 2)})
-	private double increasedLavaSpeed(double original) {
+	private double additionalEntityAttributes$increasedLavaSpeed(double original) {
 		return AttributeUtils.getAttribute((LivingEntity) (Object) this, AdditionalEntityAttributes.LAVA_SPEED, original);
 	}
 
 	@ModifyArg(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;moveRelative(FLnet/minecraft/world/phys/Vec3;)V", ordinal = 0))
-	public float waterSpeed(float original) {
+	public float additionalEntityAttributes$waterSpeed(float original) {
 		return (float) AttributeUtils.getAttribute((LivingEntity) (Object) this, AdditionalEntityAttributes.WATER_SPEED, original);
 	}
 
 	@ModifyArg(method = "dropExperience", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ExperienceOrb;award(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/phys/Vec3;I)V"), index = 2)
-	protected int modifyExperience(int originalXP) {
+	protected int additionalEntityAttributes$modifyExperience(int originalXP) {
 		if (this.lastHurtByPlayer == null) {
 			return originalXP;
 		} else {
 			return (int) (originalXP * Support.getExperienceMod(this.lastHurtByPlayer));
 		}
 	}
+
+    @ModifyVariable(method = "getDamageAfterArmorAbsorb", at = @At(value = "LOAD", ordinal = 2), argsOnly = true)
+    private float additionalEntityAttributes$reduceMagicDamage(float damage, DamageSource source) {
+        AttributeInstance magicProt = ((LivingEntity) (Object) this).getAttribute(AdditionalEntityAttributes.MAGIC_PROTECTION);
+
+        if (magicProt == null) {
+            return damage;
+        }
+
+        if (source.is(DamageTypeTags.WITCH_RESISTANT_TO) && magicProt.getValue() > 0) {
+            damage = (float) Math.max(damage - magicProt.getValue(), 0);
+        }
+        return damage;
+    }
 }

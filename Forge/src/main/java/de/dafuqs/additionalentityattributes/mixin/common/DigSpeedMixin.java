@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class DigSpeedMixin {
 
 	@ModifyVariable(method = "getDigSpeed", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffectUtil;hasDigSpeed(Lnet/minecraft/world/entity/LivingEntity;)Z"), index = 3)
-	private float getBlockBreakingSpeedMixin(float f) {
+	private float additionalEntityAttributes$getBlockBreakingSpeedMixin(float f) {
 		AttributeInstance instance = ((LivingEntity) (Object) this).getAttribute(AdditionalEntityAttributes.DIG_SPEED);
 
 		if (instance != null) {

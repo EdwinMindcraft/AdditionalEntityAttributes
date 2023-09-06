@@ -15,7 +15,7 @@ public class PlayerEntityMixin {
 	 * By default, the additional crit damage is a 50% bonus
 	 */
 	@ModifyConstant(method = "attack", constant = @Constant(floatValue = 1.5F))
-	public float applyCriticalDamageMultiplierAttribute(float original) {
+	public float additionalEntityAttributes$applyCriticalDamageMultiplierAttribute(float original) {
 		AttributeInstance criticalDamageMultiplier = ((LivingEntity) (Object) this).getAttribute(AdditionalEntityAttributes.CRITICAL_BONUS_DAMAGE);
 		if (criticalDamageMultiplier == null) {
 			return original;
