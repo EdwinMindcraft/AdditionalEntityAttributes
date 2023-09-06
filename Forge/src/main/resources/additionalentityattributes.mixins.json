@@ -1,23 +1,24 @@
 {
-	"minVersion": "0.8.5",
-	"required": true,
-	"package": "de.dafuqs.additionalentityattributes.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
+  "minVersion": "0.8.5",
+  "required": true,
+  "package": "de.dafuqs.additionalentityattributes.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
     "common.ApplyBonusLootFunctionMixin",
     "common.BlockMixin",
     "common.DigSpeedMixin",
     "common.EntityMixin",
     "common.LivingEntityMixin",
+    "common.MagicResistanceMixin",
     "common.PlayerEntityMixin",
     "common.RandomChanceLootConditionMixin",
     "common.RandomChanceWithLootingLootConditionMixin"
-	],
-	"client": [
-		"client.BackgroundRendererMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"refmap": "additionalentityattributes.refmap.json"
+  ],
+  "client": [
+    "client.BackgroundRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "additionalentityattributes.refmap.json"
 }

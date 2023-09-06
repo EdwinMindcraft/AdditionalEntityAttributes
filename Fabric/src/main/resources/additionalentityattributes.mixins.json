@@ -1,24 +1,25 @@
 {
-	"required": true,
-	"minVersion": "0.8",
-	"package": "de.dafuqs.additionalentityattributes.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
+  "required": true,
+  "minVersion": "0.8",
+  "package": "de.dafuqs.additionalentityattributes.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "common.AddAttributesMixin",
     "common.ApplyBonusLootFunctionMixin",
-		"common.AddAttributesMixin",
     "common.BlockMixin",
-		"common.DigSpeedMixin",
+    "common.DigSpeedMixin",
     "common.EntityMixin",
-		"common.LivingEntityMixin",
-		"common.PlayerEntityMixin",
+    "common.LivingEntityMixin",
+    "common.MagicResistanceMixin",
+    "common.PlayerEntityMixin",
     "common.RandomChanceLootConditionMixin",
     "common.RandomChanceWithLootingLootConditionMixin",
-		"common.WaterSpeedMixin"
-	],
-	"client": [
-		"client.BackgroundRendererMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+    "common.WaterSpeedMixin"
+  ],
+  "client": [
+    "client.BackgroundRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }

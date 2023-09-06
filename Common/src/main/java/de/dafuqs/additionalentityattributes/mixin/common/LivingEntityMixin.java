@@ -35,18 +35,4 @@ public abstract class LivingEntityMixin {
 			return (int) (originalXP * Support.getExperienceMod(this.lastHurtByPlayer));
 		}
 	}
-
-	@ModifyVariable(method = "getDamageAfterArmorAbsorb", at = @At(value = "LOAD", ordinal = 4), argsOnly = true)
-	private float additionalEntityAttributes$reduceMagicDamage(float damage, DamageSource source) {
-		AttributeInstance magicProt = ((LivingEntity) (Object) this).getAttribute(AdditionalEntityAttributes.MAGIC_PROTECTION);
-
-		if (magicProt == null) {
-			return damage;
-		}
-
-		if (source.is(DamageTypeTags.WITCH_RESISTANT_TO) && magicProt.getValue() > 0) {
-			damage = (float) Math.max(damage - magicProt.getValue(), 0);
-		}
-		return damage;
-	}
 }
