@@ -15,9 +15,11 @@ import org.spongepowered.asm.mixin.injection.*;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
-	@Shadow @Nullable protected Player lastHurtByPlayer;
 
-	@ModifyConstant(method = "travel", constant = {@Constant(doubleValue = 0.5D, ordinal = 0), @Constant(doubleValue = 0.5D, ordinal = 1), @Constant(doubleValue = 0.5D, ordinal = 2)})
+    @Shadow @Nullable
+    protected Player lastHurtByPlayer;
+
+    @ModifyConstant(method = "travel", constant = {@Constant(doubleValue = 0.5D, ordinal = 0), @Constant(doubleValue = 0.5D, ordinal = 1), @Constant(doubleValue = 0.5D, ordinal = 2)})
 	private double additionalEntityAttributes$increasedLavaSpeed(double original) {
 		return AttributeUtils.getAttribute((LivingEntity) (Object) this, AdditionalEntityAttributes.LAVA_SPEED, original);
 	}
