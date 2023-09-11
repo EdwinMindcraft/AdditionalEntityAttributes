@@ -8,16 +8,16 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 
+import javax.annotation.Nullable;
+
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
 
-    @Shadow @Nullable
-    protected Player lastHurtByPlayer;
+    @Shadow @Nullable protected Player lastHurtByPlayer;
 
     @ModifyConstant(method = "travel", constant = {@Constant(doubleValue = 0.5D, ordinal = 0), @Constant(doubleValue = 0.5D, ordinal = 1), @Constant(doubleValue = 0.5D, ordinal = 2)})
 	private double additionalEntityAttributes$increasedLavaSpeed(double original) {
