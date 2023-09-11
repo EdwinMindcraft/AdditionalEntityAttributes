@@ -13,8 +13,8 @@ minecraft {
 }
 
 dependencies {
-	compileOnly group:'org.spongepowered', name:'mixin', version:'0.8.5'
     annotationProcessor(compileOnly("com.github.llamalad7.mixinextras:mixinextras-common:${mixin_extras_version}"))
+    compileOnly group:'org.spongepowered', name:'mixin', version:'0.8.5'
 }
 
 processResources {
