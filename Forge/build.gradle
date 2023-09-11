@@ -96,7 +96,6 @@ mixin {
 	add sourceSets.main, "additionalentityattributes.refmap.json"
 }
 
-
 tasks.jarJar.configure {
     archiveClassifier = ""
     dependsOn('reobfJar')
@@ -106,7 +105,7 @@ reobf {
     jarJar {}
 }
 
-jar.finalizedBy('jarJar')
+jar.finalizedBy('reobfJarJar')
 
 tasks.withType(PublishToMavenRepository) {
     dependsOn('jarJar')
@@ -119,7 +118,6 @@ publishing {
             artifactId project.archivesBaseName
             version project.version
             from components.java
-            fg.component(it)
         }
     }
     repositories {
