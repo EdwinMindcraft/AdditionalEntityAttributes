@@ -15,6 +15,7 @@ minecraft {
 dependencies {
     annotationProcessor(compileOnly("com.github.llamalad7.mixinextras:mixinextras-common:${mixin_extras_version}"))
     compileOnly group:'org.spongepowered', name:'mixin', version:'0.8.5'
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
 }
 
 processResources {

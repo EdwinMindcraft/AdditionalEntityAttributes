@@ -12,6 +12,7 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 	implementation project(":Common")
     include(implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-fabric:${mixin_extras_version}")))
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
 }
 
 loom {
