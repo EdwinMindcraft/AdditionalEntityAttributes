@@ -107,7 +107,7 @@ reobf {
 
 jar.finalizedBy('reobfJarJar')
 
-tasks.withType(PublishToMavenRepository) {
+tasks.withType(AbstractPublishToMaven) {
     dependsOn('jarJar')
 }
 
