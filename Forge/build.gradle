@@ -13,6 +13,7 @@ apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'maven-publish'
 
 archivesBaseName = "${archives_base_name}-forge-${minecraft_version}"
 
@@ -88,3 +89,25 @@ mixin {
 }
 
 jar.finalizedBy('reobfJar')
+
+publishing {
+	publications {
+		maven(MavenPublication) {
+			groupId project.group
+			artifactId project.archivesBaseName
+			version project.version
+			from components.java
+		}
+	}
+	repositories {
+		maven {
+			name = "merchantpug"
+			url = "https://maven.merchantpug.net/releases"
+			credentials(PasswordCredentials)
+			authentication {
+				create("basic", BasicAuthentication)
+			}
+		}
+		mavenLocal()
+	}
+}
