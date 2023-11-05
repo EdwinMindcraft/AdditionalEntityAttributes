@@ -97,13 +97,17 @@ publishing {
 			artifactId project.archivesBaseName
 			version project.version
 			from components.java
+			fg.component(it)
 		}
 	}
 	repositories {
 		maven {
 			name = "merchantpug"
 			url = "https://maven.merchantpug.net/releases"
-			credentials(PasswordCredentials)
+			credentials {
+				username System.getenv('MAVEN_USERNAME')
+				password System.getenv('MAVEN_PASSWORD')
+			}
 			authentication {
 				create("basic", BasicAuthentication)
 			}
