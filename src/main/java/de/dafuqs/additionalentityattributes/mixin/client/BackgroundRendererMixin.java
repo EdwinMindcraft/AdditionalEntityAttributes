@@ -1,5 +1,6 @@
 package de.dafuqs.additionalentityattributes.mixin.client;
 
+import de.dafuqs.additionalentityattributes.AdditionalEntityAttributes;
 import de.dafuqs.additionalentityattributes.AttributeUtils;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -13,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public abstract class BackgroundRendererMixin {
 	@ModifyConstant(method = "setupFog(Lnet/minecraft/client/Camera;Lnet/minecraft/client/renderer/FogRenderer$FogMode;FZF)V", constant = @Constant(floatValue = 0.25F, ordinal = 0))
 	private static float additionalEntityAttributes$modifyLavaVisibilityMinWithoutFireResistance(float original, Camera camera) {
-		AttributeInstance lavaVisibilityAttribute = Minecraft.getInstance().player.getAttribute(AdditionalEntityAttributes.LAVA_VISIBILITY);
+		AttributeInstance lavaVisibilityAttribute = Minecraft.getInstance().player.getAttribute(AdditionalEntityAttributes.LAVA_VISIBILITY.get());
 		if(lavaVisibilityAttribute == null) {
 			return original;
 		} else {
@@ -26,22 +27,22 @@ public abstract class BackgroundRendererMixin {
 	
 	@ModifyConstant(method = "setupFog(Lnet/minecraft/client/Camera;Lnet/minecraft/client/renderer/FogRenderer$FogMode;FZF)V", constant = @Constant(floatValue = 1.0F, ordinal = 0))
 	private static float additionalEntityAttributes$modifyLavaVisibilityMaxWithoutFireResistance(float original, Camera camera) {
-		return (float) AttributeUtils.getAttribute(Minecraft.getInstance().player, AdditionalEntityAttributes.LAVA_VISIBILITY, original);
+		return (float) AttributeUtils.getAttribute(Minecraft.getInstance().player, AdditionalEntityAttributes.LAVA_VISIBILITY.get(), original);
 	}
 	
 	@ModifyConstant(method = "setupFog(Lnet/minecraft/client/Camera;Lnet/minecraft/client/renderer/FogRenderer$FogMode;FZF)V", constant = @Constant(floatValue = 0.0F, ordinal = 0))
 	private static float additionalEntityAttributes$modifyLavaVisibilityMinFireResistance(float original, Camera camera) {
-		return (float) AttributeUtils.getAttribute(Minecraft.getInstance().player, AdditionalEntityAttributes.LAVA_VISIBILITY, original);
+		return (float) AttributeUtils.getAttribute(Minecraft.getInstance().player, AdditionalEntityAttributes.LAVA_VISIBILITY.get(), original);
 	}
 	
 	@ModifyConstant(method = "setupFog(Lnet/minecraft/client/Camera;Lnet/minecraft/client/renderer/FogRenderer$FogMode;FZF)V", constant = @Constant(floatValue = 3.0F, ordinal = 0))
 	private static float additionalEntityAttributes$modifyLavaVisibilityMaxWithFireResistance(float original, Camera camera) {
-		return (float) AttributeUtils.getAttribute(Minecraft.getInstance().player, AdditionalEntityAttributes.LAVA_VISIBILITY, original);
+		return (float) AttributeUtils.getAttribute(Minecraft.getInstance().player, AdditionalEntityAttributes.LAVA_VISIBILITY.get(), original);
 	}
 	
 	@ModifyConstant(method = "setupFog(Lnet/minecraft/client/Camera;Lnet/minecraft/client/renderer/FogRenderer$FogMode;FZF)V", constant = @Constant(floatValue = 96F, ordinal = 0))
 	private static float additionalEntityAttributes$modifyWaterVisibility(float original, Camera camera) {
-		return (float) AttributeUtils.getAttribute(Minecraft.getInstance().player, AdditionalEntityAttributes.WATER_VISIBILITY, original);
+		return (float) AttributeUtils.getAttribute(Minecraft.getInstance().player, AdditionalEntityAttributes.WATER_VISIBILITY.get(), original);
 	}
 	
 }

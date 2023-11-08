@@ -1,6 +1,7 @@
 package de.dafuqs.additionalentityattributes.mixin.common;
 
 import de.dafuqs.additionalentityattributes.AdditionalEntityAttributes;
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -18,14 +19,13 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(ApplyBonusCount.class)
 public abstract class ApplyBonusLootFunctionMixin {
-	
+
 	@Shadow
 	@Final
-	Enchantment enchantment;
-	@Shadow
-	@Final
-	ApplyBonusCount.Formula formula;
-	
+	private ApplyBonusCount.Formula formula;
+
+	@Shadow @Final private Holder<Enchantment> enchantment;
+
 	@ModifyVariable(method = "run", at = @At("STORE"), ordinal = 1)
 	public int additionalEntityAttributes$applyBonusLoot(int oldValue, ItemStack stack, LootContext context) {
 		// if the player has the ANOTHER_DRAW effect the bonus loot of
@@ -33,7 +33,7 @@ public abstract class ApplyBonusLootFunctionMixin {
 		ItemStack itemStack = context.getParamOrNull(LootContextParams.TOOL);
 		Entity entity = context.getParamOrNull(LootContextParams.THIS_ENTITY);
 		if (itemStack != null && entity instanceof LivingEntity livingEntity) {
-			int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(this.enchantment, itemStack);
+			int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(this.enchantment.value(), itemStack);
 			if (enchantmentLevel > 0) {
 				AttributeInstance attributeInstance = livingEntity.getAttribute(AdditionalEntityAttributes.BONUS_LOOT_COUNT_ROLLS.get());
 				if (attributeInstance != null) {

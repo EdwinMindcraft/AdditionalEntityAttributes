@@ -1,27 +1,27 @@
 package de.dafuqs.additionalentityattributes;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.extensions.IForgeLivingEntity;
-import net.minecraftforge.fluids.FluidType;
+import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.common.extensions.ILivingEntityExtension;
+import net.neoforged.neoforge.fluids.FluidType;
 
 public class FluidTypeHooks {
 	/**
-	 * Injected in {@link IForgeLivingEntity#jumpInFluid(FluidType)}
+	 * Injected in {@link ILivingEntityExtension#jumpInFluid(FluidType)}
 	 */
 	public static double jumpHook(LivingEntity living, FluidType type, double original) {
-		if (ForgeMod.WATER_TYPE.get() == type)
-			return AttributeUtils.getAttribute(living, AdditionalEntityAttributes.WATER_SPEED, original);
+		if (NeoForgeMod.WATER_TYPE.get() == type)
+			return AttributeUtils.getAttribute(living, AdditionalEntityAttributes.WATER_SPEED.get(), original);
 		else
 			return original;
 	}
 
 	/**
-	 * Injected in {@link IForgeLivingEntity#sinkInFluid(FluidType)}
+	 * Injected in {@link ILivingEntityExtension#sinkInFluid(FluidType)}
 	 */
 	public static double sinkHook(LivingEntity living, FluidType type, double original) {
-		if (ForgeMod.WATER_TYPE.get() == type)
-			return -AttributeUtils.getAttribute(living, AdditionalEntityAttributes.WATER_SPEED, -original);
+		if (NeoForgeMod.WATER_TYPE.get() == type)
+			return -AttributeUtils.getAttribute(living, AdditionalEntityAttributes.WATER_SPEED.get(), -original);
 		else
 			return original;
 	}

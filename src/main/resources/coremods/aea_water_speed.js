@@ -14,7 +14,7 @@ function transformer(methodName, hookName) {
 	return {
 		'target': {
 			'type': 'METHOD',
-			'class': 'net.minecraftforge.common.extensions.IForgeLivingEntity',
+			'class': 'net.neoforged.neoforge.common.extensions.ILivingEntityExtension',
 			'methodName': methodName,
 			'methodDesc': '(Lnet/minecraftforge/fluids/FluidType;)V'
 		},
