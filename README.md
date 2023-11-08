@@ -13,7 +13,6 @@ repositories {
 
 dependencies {
     ...
-    // Forge
     implementation(jarJar("de.dafuqs:additionalentityattributes-forge:${aea_forge_version}+${minecraft_version}")) {
         jarJar.ranged(it, "[${aea_forge_version},)")
     }
@@ -22,6 +21,6 @@ dependencies {
 
 `Example gradle.properties`
 ```properties
-aea_forge_version=1.4.0.5
+aea_forge_version=1.5.0.1
 minecraft_version=1.20.2
 ```
